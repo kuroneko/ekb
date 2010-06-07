@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100607115024) do
+ActiveRecord::Schema.define(:version => 20100607115559) do
 
   create_table "alliances", :force => true do |t|
     t.string   "name",       :null => false
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(:version => 20100607115024) do
 
   add_index "corporations", ["alliance_id"], :name => "index_corporations_on_alliance_id"
   add_index "corporations", ["name"], :name => "index_corporations_on_name"
+
+  create_table "kills", :force => true do |t|
+    t.datetime "killtime"
+    t.integer  "victim_pilot_id",                         :null => false
+    t.integer  "victim_corporation_id",                   :null => false
+    t.integer  "victim_alliance_id"
+    t.integer  "finalblow_pilot_id",                      :null => false
+    t.integer  "finalblow_corporation_id",                :null => false
+    t.integer  "finalblow_alliance_id"
+    t.integer  "points",                   :default => 0, :null => false
+    t.integer  "damage_taken",             :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pilots", :force => true do |t|
     t.string   "name",                          :null => false
