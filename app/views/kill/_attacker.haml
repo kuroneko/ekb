@@ -1,13 +1,15 @@
 %div.attacker
-  %p
-    %b Name
-    &= attacker.pilot.name
+  - if attacker.pilot then
+    %p
+      %b Name
+      &= attacker.pilot.name
   %p
     %b Corporation
     &= attacker.corporation.name
-  %p
-    %b Alliance
-    &= attacker.alliance.name
+  - if attacker.alliance then
+    %p
+      %b Alliance
+      &= attacker.alliance.name
   %p
     %b Damage Done
     &= attacker.damage_done
