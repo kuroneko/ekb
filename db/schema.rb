@@ -9,15 +9,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100607115559) do
+ActiveRecord::Schema.define(:version => 20100607132459) do
 
   create_table "alliances", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_seen"
   end
 
   add_index "alliances", ["name"], :name => "index_alliances_on_name"
+
+  create_table "attackers", :force => true do |t|
+    t.integer  "kill_id",                           :null => false
+    t.integer  "pilot_id"
+    t.integer  "corporation_id",                    :null => false
+    t.integer  "alliance_id"
+    t.boolean  "final_blow",     :default => false, :null => false
+    t.integer  "damage_done",    :default => 0,     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attackers", ["alliance_id", "corporation_id", "pilot_id"], :name => "index_attackers_on_alliance_id_and_corporation_id_and_pilot_id"
+  add_index "attackers", ["corporation_id", "pilot_id"], :name => "index_attackers_on_corporation_id_and_pilot_id"
+  add_index "attackers", ["kill_id"], :name => "index_attackers_on_kill_id"
+  add_index "attackers", ["pilot_id"], :name => "index_attackers_on_pilot_id"
 
   create_table "corporations", :force => true do |t|
     t.string   "name",                           :null => false
@@ -25,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20100607115559) do
     t.boolean  "trial",       :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_seen"
   end
 
   add_index "corporations", ["alliance_id"], :name => "index_corporations_on_alliance_id"
@@ -32,11 +50,11 @@ ActiveRecord::Schema.define(:version => 20100607115559) do
 
   create_table "kills", :force => true do |t|
     t.datetime "killtime"
-    t.integer  "victim_pilot_id",                         :null => false
+    t.integer  "victim_pilot_id"
     t.integer  "victim_corporation_id",                   :null => false
     t.integer  "victim_alliance_id"
-    t.integer  "finalblow_pilot_id",                      :null => false
-    t.integer  "finalblow_corporation_id",                :null => false
+    t.integer  "finalblow_pilot_id"
+    t.integer  "finalblow_corporation_id"
     t.integer  "finalblow_alliance_id"
     t.integer  "points",                   :default => 0, :null => false
     t.integer  "damage_taken",             :default => 0, :null => false
@@ -52,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20100607115559) do
     t.integer  "losspoints",     :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_seen"
   end
 
   add_index "pilots", ["killpoints"], :name => "index_pilots_on_killpoints"

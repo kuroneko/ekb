@@ -1,0 +1,8 @@
+- if flash[:notice] then
+  %div#notice= flash[:notice]
+- if flash[:note] then
+  $div#note= flash[:note]
+
+- form_tag url_for(:action => :post), :action => :post do
+  %p= text_area_tag('killmail', @killmail)
+  %p= submit_tag('Post Killmail')

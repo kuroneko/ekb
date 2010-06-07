@@ -1,0 +1,13 @@
+%div
+  %div
+    %h2 Victim
+    %p
+      %b Name:
+      &= @kill.victim_pilot.name
+    %p
+      %b Corporation:
+      &= @kill.victim_corporation.name
+      
+  %div
+    %h2 Attackers
+    = render :partial => 'attacker', :collection => @kill.attackers
