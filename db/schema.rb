@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100607114039) do
+ActiveRecord::Schema.define(:version => 20100607114437) do
 
   create_table "alliances", :force => true do |t|
     t.string   "name",       :null => false
@@ -18,5 +18,16 @@ ActiveRecord::Schema.define(:version => 20100607114039) do
   end
 
   add_index "alliances", ["name"], :name => "index_alliances_on_name"
+
+  create_table "corporations", :force => true do |t|
+    t.string   "name",                           :null => false
+    t.integer  "alliance_id"
+    t.boolean  "trial",       :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "corporations", ["alliance_id"], :name => "index_corporations_on_alliance_id"
+  add_index "corporations", ["name"], :name => "index_corporations_on_name"
 
 end

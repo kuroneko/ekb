@@ -1,5 +1,4 @@
-class Alliance < ActiveRecord::Base
+class Corporation < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"
-  has_many :corporations
-  
+  belongs_to :alliance
 end
